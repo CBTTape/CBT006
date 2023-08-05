@@ -1,0 +1,71 @@
+I don't actually use all the material that is in this file,
+in the process of servicing "FILE001" of the CBT Tape.
+However, I keep the code around, just in case I would need
+to see what I once did.  Therefore, I am writing the
+following:
+
+Notes on which programs I actually use.
+
+    Explanation:  There are many extraneous members in this pds,
+       which I don't actually use.  To help avoid confusion, I
+       am pointing out a few members which I actually use.
+
+    For preparing a new pds to post...!!!
+
+1.  When I prepare a new pds, I make sure it has a member
+    @FILEnnn or @FILnnnn (if the file number is 1000 or
+    greater).  This member should be in sync with the same
+    named member in the pds:  SBGOLOB.CBTDOC.PDS
+
+2.  I then run the REXX called DOCFILX against this
+    documentation member.
+
+3.  I then run the REXX called GENDATR to create a member
+    called $$$#DATE in the pds.  Problem here, is that if
+    I run GENDATR for the first time, it doesn't count
+    itself as one of the pds members.  So I have to run it
+    a second time, so it counts itself, in the member count,
+    and it counts the extra 12 lines that this member has.
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    To create FILE001 from SBGOLOB.CBTDOC.PDS...!!!
+
+1.  Go into the PDS 8.6 program, pointing to
+    SBGOLOB.CBTDOC.PDS
+
+2.  Command:   OFFLOAD : 'SBGOLOB.CBT.CNTL(FILE001)' NOSEP
+
+3.  Command:   TSO DOCFILA
+
+    Answer the prompts:  (as follows) (assuming prefix of SBGOLOB)
+
+INPUT DATASET NAME WITHOUT THE PREFIX SBGOLOB
+cbt.cntl
+INPUT MEMBER NAME
+file001
+INPUT TO DOCFILE PROGRAM IS SBGOLOB.CBT.CNTL(FILE001)
+OUTPUT DATASET NAME WITHOUT THE PREFIX SBGOLOB
+cbt.edit
+OUTPUT MEMBER NAME
+file001
+OUTPUT OF DOCFILE PROGRAM IS SBGOLOB.CBT.EDIT(FILE001)
+OUTPUT DATASET NAME :  SBGOLOB.CBT.EDIT(FILE001)
+FIXING COLUMNS 73-80 FOR CBTDOC IN DATASET SBGOLOB.CBT.EDIT(FILE001)
+PDS86 BEING CALLED TO ADD ISPF STATS
+ISPF STATS:  VERSION    IS 5
+ISPF STATS:  MODIF LVL  IS 04
+PDS100I PDS86 -- VERSION 8.6.18.15  JULY 26, 2022  MVSLEV=MVS724
+
+PDS200I DISP UNIT OPT RECFM LRECL BLKSIZE   ALLOCTRK FREETRK SECONDARY FREEDIR
+PDS200I SHR  3390 C   FB       80   27920   5X  7335     426    45 CYL      16
+
+PDS230I MEMBER      VER.MOD  CREATED   LAST MODIFIED  SIZE  INIT   MOD   ID
+PDS230I  FILE001     05.04  22/08/11  22/08/11 19:46 65535 65535     0  CBT-504
+
+MEMBER FILE001 STATISTICS ADDED
+INPUT AND OUTPUT FILES FREED
+DOCFIL EXECUTION COMPLETED WITH RETURN CODE 0
+
+
+
